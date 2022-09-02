@@ -8,7 +8,7 @@ interface FactListProps {
 }
 
 const StyledList = styled(List)`
-  width: 50%;
+  margin: 18px 0;
 `
 
 const FactList = (props: FactListProps) => {

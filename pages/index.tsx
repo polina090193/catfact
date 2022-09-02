@@ -1,8 +1,12 @@
 import React from 'react'
 import type { NextPage } from 'next'
+import Head from 'next/head'
 import { Pagination } from 'rsuite'
 import FactList from '../components/FactList/FactList'
 import styles from '../styles/Home.module.css'
+import Filter from '../components/Filter/Filter'
+
+const APP_TITLE = 'Cat facts'
 
 const MockFacts = [
   { "fact": "Unlike dogs, cats do not have a sweet tooth. Scientists believe this is due to a mutation in a key taste receptor.", "length": 114 },
@@ -17,25 +21,34 @@ export type Fact = {
 }
 
 const facts: Fact[] = MockFacts.map((fact, i) => {
-  return {id: i, text: fact.fact}
+  return { id: i, text: fact.fact }
 })
 
 const Home: NextPage = () => {
-  const [activePage, setActivePage] = React.useState(5);
+  const [activePage, setActivePage] = React.useState(1)
 
   return (
-    <div className={styles.container}>
-      <FactList facts={facts} />
-      <Pagination
-        prev
-        next
-        total={4}
-        limit={1}
-        size="lg"
-        activePage={activePage}
-        onChangePage={setActivePage}
-      />
-    </div>
+    <>
+      <Head>
+        <title>{APP_TITLE}</title>
+      </Head>
+      <div className={styles.container}>
+        <h1>{APP_TITLE}</h1>
+        <div>
+          <Filter />
+        </div>
+        <FactList facts={facts} />
+        <Pagination
+          prev
+          next
+          total={4}
+          limit={1}
+          size="lg"
+          activePage={activePage}
+          onChangePage={setActivePage}
+        />
+      </div>
+    </>
   )
 }
 
