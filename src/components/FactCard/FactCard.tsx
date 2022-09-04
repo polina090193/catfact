@@ -15,6 +15,7 @@ const heartStyles = css`
   min-width: ${HEART_SIZE};
   min-height: ${HEART_SIZE};
   margin-left: 18px;
+  cursor: pointer;
 `
 
 const Like = styled(BsHeart)`
@@ -25,11 +26,9 @@ const LikeFill = styled(BsHeartFill)`
   ${heartStyles}
 `
 
-const FactCard = (props: { text: string, isliked: boolean }) => {
-  const { text, isliked } = props
-  const [liked, setLiked] = useState(checkIfLiked(text))
-
-  // let liked = checkIfLiked(text)
+const FactCard = (props: { text: string, isLiked: boolean }) => {
+  const { text, isLiked } = props
+  const [liked, setLiked] = useState(isLiked)
 
   const handleLike = () => {
     toggleLike(text)

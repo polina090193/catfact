@@ -8,3 +8,8 @@ export type PaginationLink = {
   label?: string,
   active?: boolean,
 }
+
+export type FilterValues = {
+  filter: string,
+  sorting: string,
+}

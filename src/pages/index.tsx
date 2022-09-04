@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import type { NextPage } from 'next'
-import type { PaginationLink } from '../types/types'
+import type { PaginationLink, FilterValues } from '../types/types'
 import Head from 'next/head'
 import FactList from '../components/FactList/FactList'
 import Pagination from '../components/Pagination/Pagination'
-import Filter from '../components/Filter/Filter'
+import FilterGroup from '../components/Filter/FilterGroup'
 import styled from 'styled-components'
 
 const APP_TITLE = 'Cat facts'
@@ -17,6 +17,7 @@ const HomeContainer = styled.div`
 const Home: NextPage = () => {
   const [pageIndex, setPageIndex] = useState(1)
   const [pageLinks, setPageLinks] = useState([{}])
+  const [filterValues, setFilterValues] = useState({filter: 'default', sorting: 'default'})
 
   function handlePageChange(newPageIndex: number) {
     setPageIndex(newPageIndex)
@@ -24,6 +25,10 @@ const Home: NextPage = () => {
 
   function handleLinksFetching(links: PaginationLink[]) {
     setPageLinks(links)
+  }
+
+  function handleFiltersChange(values: FilterValues) {
+    setFilterValues(values)
   }
 
   return (
@@ -34,9 +39,9 @@ const Home: NextPage = () => {
       <HomeContainer>
         <h1>{APP_TITLE}</h1>
         <div>
-          <Filter />
+          <FilterGroup filterValues={filterValues} onFiltersChange={handleFiltersChange} />
         </div>
-        <FactList pageIndex={pageIndex} onLinksFetching={handleLinksFetching} />
+        <FactList pageIndex={pageIndex} onLinksFetching={handleLinksFetching} filterValues={filterValues} />
         <Pagination pageLinks={pageLinks} pageIndex={pageIndex} onPageChange={handlePageChange} />
       </HomeContainer>
     </>
