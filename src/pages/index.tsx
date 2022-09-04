@@ -1,13 +1,18 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import type { NextPage } from 'next'
 import type { PaginationLink } from '../types/types'
 import Head from 'next/head'
 import FactList from '../components/FactList/FactList'
 import Pagination from '../components/Pagination/Pagination'
-import styles from '../styles/Home.module.css'
 import Filter from '../components/Filter/Filter'
+import styled from 'styled-components'
 
 const APP_TITLE = 'Cat facts'
+
+const HomeContainer = styled.div`
+  padding: 0 2rem;
+  max-width: 1000px;
+`
 
 const Home: NextPage = () => {
   const [pageIndex, setPageIndex] = useState(1)
@@ -26,14 +31,14 @@ const Home: NextPage = () => {
       <Head>
         <title>{APP_TITLE}</title>
       </Head>
-      <div className={styles.container}>
+      <HomeContainer>
         <h1>{APP_TITLE}</h1>
         <div>
           <Filter />
         </div>
         <FactList pageIndex={pageIndex} onLinksFetching={handleLinksFetching} />
         <Pagination pageLinks={pageLinks} pageIndex={pageIndex} onPageChange={handlePageChange} />
-      </div>
+      </HomeContainer>
     </>
   )
 }

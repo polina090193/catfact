@@ -4,6 +4,7 @@ import fetcher from '../../pages/api/fetcher'
 import { List } from 'rsuite'
 import FactCard from '../FactCard/FactCard'
 import styled from 'styled-components'
+import { checkIfLiked } from '../../storage/storage'
 
 const StyledList = styled(List)`
   margin: 18px 0;
@@ -31,7 +32,7 @@ const FactList = (props: { pageIndex: number, onLinksFetching: Function,  }) => 
   return (
     <>
       <StyledList>
-        {facts.map((fact, i) => <FactCard key={i} text={fact} />)}
+        {facts.map((fact, i) => <FactCard key={i} text={fact} isliked={checkIfLiked(fact)} />)}
       </StyledList>
     </>
   )

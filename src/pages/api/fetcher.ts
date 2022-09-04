@@ -1,4 +1,4 @@
-export async function fetcher (url: string) {
+export async function fetcher(url: string) {
   const res = await fetch(url)
 
   if (!res.ok) {
