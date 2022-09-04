@@ -1,10 +1,6 @@
 import { Radio, RadioGroup, Form } from 'rsuite';
 import styled from 'styled-components'
 
-// interface FactCardProps {
-//     text: string,
-// }
-
 const FiltersList = styled.div`
   display: flex;
   justify-content: space-between;

@@ -1,40 +1,25 @@
-import React from 'react'
-import type { NextPage, GetStaticProps, InferGetStaticPropsType } from 'next'
+import React, { useState } from 'react'
+import type { NextPage } from 'next'
+import type { PaginationLink } from '../types/types'
 import Head from 'next/head'
-import { Pagination } from 'rsuite'
 import FactList from '../components/FactList/FactList'
+import Pagination from '../components/Pagination/Pagination'
 import styles from '../styles/Home.module.css'
 import Filter from '../components/Filter/Filter'
 
 const APP_TITLE = 'Cat facts'
 
-type fetchedFact = {
-  fact: string,
-  length: number,
-}
+const Home: NextPage = () => {
+  const [pageIndex, setPageIndex] = useState(1)
+  const [pageLinks, setPageLinks] = useState([{}])
 
-export type Fact = {
-  id: number,
-  text: string,
-}
-
-export const getStaticProps: GetStaticProps = async () => {
-  const fetchedFacts = await (await fetch('https://catfact.ninja/facts'))?.json()
-  
-
-  const facts = fetchedFacts.data.map((fact : fetchedFact, i: number): Fact => {
-    return { id: i, text: fact.fact }
-  })
-
-  return {
-    props: {
-      facts
-    }
+  function handlePageChange(newPageIndex: number) {
+    setPageIndex(newPageIndex)
   }
-}
 
-const Home: NextPage = ({ facts }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const [activePage, setActivePage] = React.useState(1)
+  function handleLinksFetching(links: PaginationLink[]) {
+    setPageLinks(links)
+  }
 
   return (
     <>
@@ -46,16 +31,8 @@ const Home: NextPage = ({ facts }: InferGetStaticPropsType<typeof getStaticProps
         <div>
           <Filter />
         </div>
-        <FactList facts={facts} />
-        <Pagination
-          prev
-          next
-          total={4}
-          limit={1}
-          size="lg"
-          activePage={activePage}
-          onChangePage={setActivePage}
-        />
+        <FactList pageIndex={pageIndex} onLinksFetching={handleLinksFetching} />
+        <Pagination pageLinks={pageLinks} pageIndex={pageIndex} onPageChange={handlePageChange} />
       </div>
     </>
   )

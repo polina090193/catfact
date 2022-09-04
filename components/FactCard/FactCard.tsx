@@ -2,10 +2,6 @@ import { List } from 'rsuite'
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import styled, { css } from 'styled-components'
 
-interface FactCardProps {
-    text: string,
-}
-
 const StyledListItem = styled(List.Item)`
   display: flex;
   justify-content: space-between;
@@ -27,7 +23,7 @@ const LikeFill = styled(BsHeartFill)`
   ${heartStyles}
 `
 
-const FactCard = (props: FactCardProps) => {
+const FactCard = (props: { text: string }) => {
   const { text } = props;
   return (
     <StyledListItem>
