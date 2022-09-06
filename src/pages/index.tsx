@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import type { NextPage } from 'next'
-import type { PaginationLink, FilterValues } from '../types/types'
+import type { PaginationLink, FilterValues, FetchedFact } from '../types/types'
 import Head from 'next/head'
 import FactList from '../components/FactList/FactList'
 import Pagination from '../components/Pagination/Pagination'
 import FilterGroup from '../components/Filter/FilterGroup'
 import styled from 'styled-components'
+import { GetStaticProps, InferGetStaticPropsType } from 'next'
 
 const APP_TITLE = 'Cat facts'
 
@@ -14,7 +15,22 @@ const HomeContainer = styled.div`
   max-width: 1000px;
 `
 
-const Home: NextPage = () => {
+export const getStaticProps: GetStaticProps = async () => {
+  const fetchedData = await (await fetch('http://localhost:3000/api/fetchData'/* + pageNum */))?.json()
+  
+  const currentPageData = fetchedData.data.map((item: FetchedFact, i: number) => ({
+    id: Number(`${fetchedData.current_page}${i + 1}`),
+    text: item.fact
+  }))
+
+  return {
+    props: {
+      currentPageData,
+    },
+  }
+}
+
+const Home: NextPage = ({ currentPageData }: InferGetStaticPropsType <typeof getStaticProps>) => {
   const [pageIndex, setPageIndex] = useState(1)
   const [pageLinks, setPageLinks] = useState([{}])
   const [filterValues, setFilterValues] = useState({filter: 'default', sorting: 'default'})
@@ -23,9 +39,9 @@ const Home: NextPage = () => {
     setPageIndex(newPageIndex)
   }
 
-  function handleLinksFetching(links: PaginationLink[]) {
+  /* function handleLinksFetching(links: PaginationLink[]) {
     setPageLinks(links)
-  }
+  } */
 
   function handleFiltersChange(values: FilterValues) {
     setFilterValues(values)
@@ -41,7 +57,7 @@ const Home: NextPage = () => {
         <div>
           <FilterGroup filterValues={filterValues} onFiltersChange={handleFiltersChange} />
         </div>
-        <FactList pageIndex={pageIndex} onLinksFetching={handleLinksFetching} filterValues={filterValues} />
+        <FactList pageIndex={pageIndex} currentPageData={currentPageData} /* onLinksFetching={handleLinksFetching}  */filterValues={filterValues} />
         <Pagination pageLinks={pageLinks} pageIndex={pageIndex} onPageChange={handlePageChange} />
       </HomeContainer>
     </>

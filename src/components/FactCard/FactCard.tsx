@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { List } from 'rsuite'
-import { BsHeart, BsHeartFill } from 'react-icons/bs'
 import styled, { css } from 'styled-components'
 import { checkIfLiked, toggleLike } from '../../storage/storage'
+import { FactWithId } from '../../types/types'
+import { Heart, HeartFill } from '@styled-icons/bootstrap'
+import { useLoaded } from '../../storage/storage'
 
 const StyledListItem = styled(List.Item)`
   display: flex;
@@ -11,34 +13,39 @@ const StyledListItem = styled(List.Item)`
 
 const HEART_SIZE = '24px'
 
-const heartStyles = css`
-  min-width: ${HEART_SIZE};
-  min-height: ${HEART_SIZE};
+const likeStyles = css`
+  max-width: ${HEART_SIZE};
+  max-height: ${HEART_SIZE};
   margin-left: 18px;
   cursor: pointer;
 `
 
-const Like = styled(BsHeart)`
-  ${heartStyles}
+const Like = styled.div`
+  ${likeStyles}
 `
 
-const LikeFill = styled(BsHeartFill)`
-  ${heartStyles}
-`
+const FactCard = (props: { fact: FactWithId, isLiked: boolean }) => {
+  const loaded = useLoaded()
 
-const FactCard = (props: { text: string, isLiked: boolean }) => {
-  const { text, isLiked } = props
+  const { fact, isLiked } = props
   const [liked, setLiked] = useState(isLiked)
 
   const handleLike = () => {
-    toggleLike(text)
-    setLiked(checkIfLiked(text))
+    toggleLike(fact.id)
+    setLiked(checkIfLiked(fact.id))
   }
 
   return (
-    <StyledListItem>
-      {text} {liked ? <LikeFill onClick={() => handleLike()} /> : <Like onClick={() => handleLike()} />}
-    </StyledListItem>
+    <>
+      {loaded &&
+        <StyledListItem>
+          <div>{fact.text}</div>
+          <Like>
+            {liked ? <HeartFill onClick={() => handleLike()} /> : <Heart onClick={() => handleLike()} />}
+          </Like>
+        </StyledListItem>
+      }
+    </>
   )
 }
 

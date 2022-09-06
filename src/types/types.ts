@@ -3,6 +3,11 @@ export type FetchedFact = {
   length: number,
 }
 
+export type FactWithId = {
+  id: number,
+  text: string,
+}
+
 export type PaginationLink = {
   url?: string | null,
   label?: string,

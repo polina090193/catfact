@@ -1,50 +1,47 @@
-import { useState, useCallback } from 'react';
+import {useEffect, useState} from "react";
+
+export const useLoaded = () => {
+    const [loaded, setLoaded] = useState(false);
+    useEffect(() => setLoaded(true), []);
+    return loaded;
+};
 
 export const LIKED_STORAGE_KEY = 'liked'
 
 export const likedStorage = {
   fetch() {
-    const likedItems = JSON.parse(localStorage.getItem(LIKED_STORAGE_KEY) || "[]")
-    return likedItems
+    if (typeof window !== 'undefined') {
+      const likedItems = JSON.parse(localStorage.getItem(LIKED_STORAGE_KEY) || "[]")
+      return likedItems
+    }
   },
 
-  save(likedItems: string[]) {
-    localStorage.setItem(LIKED_STORAGE_KEY, JSON.stringify(likedItems))
+  save(likedItems: number[]) {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(LIKED_STORAGE_KEY, JSON.stringify(likedItems))
+    }
   },
 }
 
-export function checkIfLiked(fact: string): boolean {
-  const likedItems = likedStorage.fetch()
-  return likedItems.includes(fact)
+export function checkIfLiked(factId: number): boolean {
+  if (typeof window !== 'undefined') {
+    const likedItems = likedStorage.fetch()
+    return likedItems.includes(factId)
+  }
+  return false
 }
 
-export function toggleLike(fact: string) {
+export function toggleLike(factId: number) {
   const likedItems = likedStorage.fetch()
   
-  const factIndex = likedItems.indexOf(fact)
+  const factIndex = likedItems.indexOf(factId)
   if (factIndex === -1) {
-    likedItems.push(fact)
+    likedItems.push(factId)
   } else {
     likedItems.splice(factIndex, 1)
   }
 
   likedStorage.save(likedItems)
-}
-
-export const useLocalStorage = (key: string, initialState: string[]) => {
-  const [value, setValue] = useState(localStorage.getItem(key) ?? initialState)
-  const updatedSetValue = useCallback(
-    (newValue: string) => {
-      if (initialState.includes(newValue) || typeof newValue === 'undefined') {
-        localStorage.removeItem(key)
-      } else {
-        localStorage.setItem(key, newValue)
-      }
-      setValue(newValue ?? initialState)
-    },
-    [initialState, key]
-  )
-  return [value, updatedSetValue]
 }
 
 export default likedStorage
