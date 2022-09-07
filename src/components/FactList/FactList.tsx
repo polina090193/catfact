@@ -10,30 +10,9 @@ const StyledList = styled(List)`
   margin: 18px 0;
 `
 
-
-
-const FactList = (/* { currentPageData }: InferGetStaticPropsType <typeof getStaticProps> */props: {  pageIndex: number,/* , onLinksFetching: Function, */ filterValues: FilterValues,  currentPageData: FactWithId[] }) => {
-  const { pageIndex, currentPageData } = props
+const FactList = (props: { filterValues: FilterValues,  currentPageData: FactWithId[] }) => {
+  const { currentPageData } = props
   
-
-  // function handleLinksFetching(links: PaginationLink[]) {
-  //   onLinksFetching(links)
-  // }
-
-  // const { data } = useSWR(`https://catfact.ninja/facts?page=${pageIndex}`, fetchData)
-  // const data = fetchData()
-  // console.log(data)
-  
-  /* if (!data || !data.data) {
-    return <h1>Waiting for loading...</h1>
-  }
-
-  const facts: string[] = data.data.map((fact: FetchedFact) => fact.fact)
-
-  const fetchedLinks: PaginationLink[] = data.links
-
-  handleLinksFetching(fetchedLinks) */
-
   return (
     <>
       <StyledList>

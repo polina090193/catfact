@@ -1,26 +1,21 @@
-import { Radio, RadioGroup, Form } from 'rsuite';
 import type { ValueType } from 'rsuite/esm/Radio';
 import type { FilterValues } from '../../types/types'
+import FilterRadio from './FilterRadio';
 import styled from 'styled-components'
 
 const FiltersList = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 50%;
-`
-
-const RadioTitle = styled.h2`
-  font-size: 18px;
+  margin-bottom: 24px;
 `
 
 const FilterGroup = (props: { filterValues: FilterValues, onFiltersChange: Function }) => {
   const { filterValues, onFiltersChange } = props
 
-  const handleChange = (value: ValueType, event: React.SyntheticEvent) => {
-    const { name } = event.target as HTMLInputElement
+  const handleChange = (value: ValueType, filterName: string) => {
     const newFilterValues = {
       ...filterValues,
-      [name]: value,
+      [filterName]: value,
     }
     onFiltersChange(newFilterValues)
   }
@@ -28,23 +23,27 @@ const FilterGroup = (props: { filterValues: FilterValues, onFiltersChange: Funct
   return (
     <FiltersList>
 
-      <Form.Group controlId="filter">
-        <RadioGroup name="filter" onChange={handleChange}>
-          <RadioTitle>Filter</RadioTitle>
-          <Radio value="liked">Liked</Radio>
-          <Radio value="not-liked">Not liked</Radio>
-          <Radio value="default">Reset</Radio>
-        </RadioGroup>
-      </Form.Group>
+      <FilterRadio
+        groupName='filter'
+        defaultValue='default'
+        title='Filter'
+        values={[
+          {value: 'liked', title: 'Liked'},
+          {value: 'not-liked', title: 'Not liked'},
+          {value: 'default', title: 'Reset'},
+        ]}
+        onValueChange={handleChange} />
 
-      <Form.Group controlId="sorting">
-        <RadioGroup name="sorting" onChange={handleChange}>
-          <RadioTitle>Sorting</RadioTitle>
-          <Radio value="liked">Liked first</Radio>
-          <Radio value="not-liked">Not liked first</Radio>
-          <Radio value="default">Default</Radio>
-        </RadioGroup>
-      </Form.Group>
+      <FilterRadio
+        groupName='sorting'
+        defaultValue='default'
+        title='Sorting'
+        values={[
+          {value: 'liked', title: 'Liked first'},
+          {value: 'not-liked', title: 'Not liked first'},
+          {value: 'default', title: 'Default'},
+        ]}
+        onValueChange={handleChange} />
       
     </FiltersList>
   )

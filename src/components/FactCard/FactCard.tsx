@@ -9,11 +9,14 @@ import { useLoaded } from '../../storage/storage'
 const StyledListItem = styled(List.Item)`
   display: flex;
   justify-content: space-between;
+  min-height: 5em;
 `
 
 const HEART_SIZE = '24px'
 
 const likeStyles = css`
+  min-width: ${HEART_SIZE};
+  min-height: ${HEART_SIZE};
   max-width: ${HEART_SIZE};
   max-height: ${HEART_SIZE};
   margin-left: 18px;
