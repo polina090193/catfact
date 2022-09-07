@@ -2,7 +2,7 @@
 - [TypeScript](https://www.typescriptlang.org/)
 - [Styled Components](https://styled-components.com/)
 - [React Suite](https://rsuitejs.com/)
-- [Styled Icons]([https://styled-components.com/](https://styled-icons.dev/)
+- [Styled Icons](https://styled-icons.dev/)
 
 ## Getting Started
 
