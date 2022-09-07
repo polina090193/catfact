@@ -1,10 +1,9 @@
 import { useState } from 'react'
+import { FactWithId } from '../../types/types'
+import { useLoaded, checkIfLiked, toggleLike } from '../../storage/storage'
 import { List } from 'rsuite'
 import styled, { css } from 'styled-components'
-import { checkIfLiked, toggleLike } from '../../storage/storage'
-import { FactWithId } from '../../types/types'
 import { Heart, HeartFill } from '@styled-icons/bootstrap'
-import { useLoaded } from '../../storage/storage'
 
 const StyledListItem = styled(List.Item)`
   display: flex;

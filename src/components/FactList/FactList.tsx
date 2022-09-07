@@ -1,10 +1,8 @@
-import type { FactWithId, PaginationLink, FilterValues } from '../../types/types'
-import useSWR from 'swr'
-// import fetchHandler from '../../pages/api/fetchData'
-import { List } from 'rsuite'
-import FactCard from '../FactCard/FactCard'
-import styled from 'styled-components'
+import type { FactWithId, FilterValues } from '../../types/types'
 import { checkIfLiked } from '../../storage/storage'
+import { List } from 'rsuite'
+import styled from 'styled-components'
+import FactCard from '../FactCard/FactCard'
 
 const StyledList = styled(List)`
   margin: 18px 0;

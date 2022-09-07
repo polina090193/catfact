@@ -1,5 +1,5 @@
-import { Radio, RadioGroup, Form } from 'rsuite';
-import type { ValueType } from 'rsuite/esm/Radio';
+import { Radio, RadioGroup, Form } from 'rsuite'
+import type { ValueType } from 'rsuite/esm/Radio'
 import styled from 'styled-components'
 
 const RadioTitle = styled.h2`

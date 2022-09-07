@@ -1,4 +1,4 @@
-import { FactWithId } from './../types/types';
+import { FactWithId } from './../types/types'
 
 export const getCurrentPageData = (
   allData: FactWithId[],

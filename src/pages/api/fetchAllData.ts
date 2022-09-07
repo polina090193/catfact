@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { FetchedFact } from '../../types/types';
+import { FetchedFact } from '../../types/types'
 
 type Data = {
   name: string

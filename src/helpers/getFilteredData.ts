@@ -1,4 +1,4 @@
-import { FactWithId, FilterValues } from './../types/types';
+import { FactWithId, FilterValues } from './../types/types'
 import { checkIfLiked } from '../storage/storage'
 
 export const getFilteredData = (
@@ -12,27 +12,27 @@ export const getFilteredData = (
   switch (filterValues.filter) {
     case 'liked':
       newData = [...currentData.filter((item: FactWithId) => checkIfLiked(item.id))]
-      break;
+      break
     case 'not-liked':
       newData = [...currentData.filter((item: FactWithId) => !checkIfLiked(item.id))]
-      break;
+      break
     default:
       newData = [...defaultData]
-      break;
+      break
   }
 
   switch (filterValues.sorting) {
     case 'liked':
       newData = [...newData.sort((x: FactWithId, y: FactWithId) => Number(checkIfLiked(y.id)) - Number(checkIfLiked(x.id)))]
-      break;
+      break
     case 'not-liked':
       newData = [...newData.sort((x: FactWithId, y: FactWithId) => Number(checkIfLiked(x.id)) - Number(checkIfLiked(y.id)))]
-      break;
+      break
     default:
       if (filterValues.filter === 'default') {
         newData = [...defaultData]
       }
-      break;
+      break
   }
 
   return newData

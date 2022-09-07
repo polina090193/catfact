@@ -1,7 +1,7 @@
-import type { ValueType } from 'rsuite/esm/Radio';
+import type { ValueType } from 'rsuite/esm/Radio'
 import type { FilterValues } from '../../types/types'
-import FilterRadio from './FilterRadio';
 import styled from 'styled-components'
+import FilterRadio from './FilterRadio'
 
 const FiltersList = styled.div`
   display: flex;

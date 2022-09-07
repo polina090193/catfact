@@ -1,10 +1,10 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react"
 
 export const useLoaded = () => {
-    const [loaded, setLoaded] = useState(false);
-    useEffect(() => setLoaded(true), []);
-    return loaded;
-};
+    const [loaded, setLoaded] = useState(false)
+    useEffect(() => setLoaded(true), [])
+    return loaded
+}
 
 export const LIKED_STORAGE_KEY = 'liked'
 
