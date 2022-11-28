@@ -45,6 +45,7 @@ const Home: NextPage = ({ allData }: InferGetStaticPropsType<typeof getStaticPro
   
   function handleFiltersChange(values: FilterValues) {
     setFilterValues(values)
+    handlePageChange(1)
   }
   
   currentData = [...getFilteredData(currentData, defaultData, filterValues)]
