@@ -8,13 +8,13 @@ const StyledList = styled(List)`
   margin: 18px 0;
 `
 
-const FactList = (props: { filterValues: FilterValues,  currentPageData: FactWithId[] }) => {
-  const { currentPageData } = props
+const FactList = (props: { filterValues: FilterValues,  currentPageData: FactWithId[], onHandleLike: Function }) => {
+  const { currentPageData, onHandleLike } = props
   
   return (
     <>
       <StyledList>
-        {currentPageData.map((fact: FactWithId) => <FactCard key={fact.id} fact={fact} isLiked={checkIfLiked(fact.id)} />)}
+        {currentPageData.map((fact: FactWithId) => <FactCard key={fact.id} fact={fact} isLiked={checkIfLiked(fact.id)} onHandleLike={onHandleLike} />)}
       </StyledList>
     </>
   )

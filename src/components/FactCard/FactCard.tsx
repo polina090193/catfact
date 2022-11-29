@@ -26,15 +26,16 @@ const Like = styled.div`
   ${likeStyles}
 `
 
-const FactCard = (props: { fact: FactWithId, isLiked: boolean }) => {
+const FactCard = (props: { fact: FactWithId, isLiked: boolean, onHandleLike: Function }) => {
   const loaded = useLoaded()
 
-  const { fact, isLiked } = props
+  const { fact, isLiked, onHandleLike } = props
   const [liked, setLiked] = useState(isLiked)
 
   const handleLike = () => {
     toggleLike(fact.id)
     setLiked(checkIfLiked(fact.id))
+    onHandleLike()
   }
 
   return (

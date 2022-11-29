@@ -44,7 +44,7 @@ const Home: NextPage = ({ allData }: InferGetStaticPropsType<typeof getStaticPro
   }
   
   function handleFiltersChange(values: FilterValues) {
-    setFilterValues(values)
+    setFilterValues({...values})
     handlePageChange(1)
   }
   
@@ -79,7 +79,7 @@ const Home: NextPage = ({ allData }: InferGetStaticPropsType<typeof getStaticPro
           />
         </Navigation>
 
-        <FactList currentPageData={currentPageData} filterValues={filterValues} />
+        <FactList currentPageData={currentPageData} filterValues={filterValues} onHandleLike={() => handleFiltersChange({...filterValues})} />
       </HomeContainer>
     </>
   )
